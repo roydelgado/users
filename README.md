@@ -1,5 +1,24 @@
 # Getting Started with Create React App
 
+#program statement
+HTML form exercise in React use CSS
+
+User -> validate user is not empty
+Password
+Submit button
+
+Validate fields to not be empty
+Validate username is not empty
+Do nothing on submit if form is invalid
+
+On successful submit use https://jsonplaceholder.typicode.com/users validate if username & match username and passcode should match zip code
+Else throw error
+
+Use HTML5 form validation
+
+On success print Matched on UI
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
