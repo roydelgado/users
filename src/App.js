@@ -31,6 +31,7 @@ class App extends Component {
 
     let uname = document.getElementById("uname");
     let pwd = document.getElementById("password");
+    let form = document.querySelector("form");
     let {users} = this.state;
     console.log(users);
      let data = JSON.stringify(users);
@@ -39,10 +40,13 @@ class App extends Component {
      let name = data.includes(uname.value);
      let zipcode = data.includes(pwd.value);
 
+     //If entered username and password matches fetched data display success or not
       if(name && zipcode) {
+        form.innerHTML = `<h1>There was a match:Success!</h1>`;
         console.log("matched");
-      }//build condition to match fetched object
+      }
       else {
+        form.innerHTML = `<h1>There was no match</h1>`;
         console.log("not matched");
       }
     };
