@@ -41,23 +41,15 @@ class App extends Component {
        let usernames = [];
        for (i = 0; i <users.length; i++){
         usernames.push(users[i].username);
+        usernames.push(users[i].address.zipcode);
+        console.log(usernames);
       }
       return usernames;
      });
 
-     let code = users.map(element => {
-       let i;
-       let pin = [];
-       for (i = 0; i <users.length; i++){
-        pin.push(users[i].address.zipcode);
-      }
-      return pin;
-     });
-
      let uname1 = JSON.stringify(username);
-     let pincode = JSON.stringify(code);
      let name = uname1.includes(uname.value);
-     let zipcode = pincode.includes(pwd.value);
+     let zipcode = uname1.includes(pwd.value);
 
      //If entered username and password matches fetched data display success or not
       if(name && zipcode && !null) {
