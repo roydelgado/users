@@ -27,8 +27,7 @@ class App extends Component {
       let {users} = this.state;
 
       let username = users.map(element => {
-        let i;
-        for (i = 0; i <users.length; i++){
+        for (var i in users) {
           let uname = (users[i].username);
           let pin = (users[i].address.zipcode).slice(0, 5);
           if (a === uname && b === pin){
