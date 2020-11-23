@@ -16,7 +16,7 @@ Else throw error
 
 Use HTML5 form validation
 
-On success print Matched on UI
+On success print matched on UI
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
