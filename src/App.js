@@ -21,23 +21,26 @@ class App extends Component {
   }
 
   handleSubmit = (event) => {
-    event.preventDefault();
+      event.preventDefault();
+    // if (!event.target.checkValidity()) {
+    //   this.setState({ displayErrors: true });
+    //   return;
+    // }
+    // this.setState({ displayErrors: false });
+
+
     let uname = document.getElementById("uname");
     let pwd = document.getElementById("password");
     let {users} = this.state;
-
-     console.log(uname.value);
-     console.log(pwd.value);
+    console.log(users);
      let data = JSON.stringify(users);
 
-     let name = data.search(uname);
-     let zipcode = data.search(pwd);
-     console.log(typeof(data));
+     console.log("Uname is" + uname.value);
+     let name = data.includes(uname.value);
+     let zipcode = data.includes(pwd.value);
 
       if(name && zipcode) {
-        console.log(uname.value);
         console.log("matched");
-        console.log(pwd.value);
       }//build condition to match fetched object
       else {
         console.log("not matched");
@@ -46,7 +49,7 @@ class App extends Component {
 
   render() {
     return (
-      <form>
+      <form noValidate>
         <p><label className="name"><b>Username:</b></label></p>
         <input type="text" name="uname" id="uname" required/>
         <p><label><b>Password:</b></label></p>
