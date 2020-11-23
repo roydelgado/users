@@ -7,35 +7,24 @@ class App extends Component {
     this.state = {
       users: [],
       displayErrors: null,
-      status: null
+      status: false
     }
-  }
-
-  componentDidMount() {
-    fetch('https://jsonplaceholder.typicode.com/users')
-    .then(res => res.json())
-    .then(json => {
-      this.setState({
-        users: json,
-        displayErrors: false
-      })
-    });
-  }
+  };
 
   render() {
     const compareValues = (a,b) => {
       let {users} = this.state;
 
-      let username = users.map(element => {
+      let username = this.state.users.map(element => {
         for (var i in users) {
           let uname = (users[i].username);
           let pin = (users[i].address.zipcode).slice(0, 5);
           if (a === uname && b === pin){
-            this.setState.status = true;
+            this.setState({ status: true });
           }
         }
        });
-       return this.setState.status;
+       return this.state.status;
     };
 
     const handleSubmit = (event) => {
@@ -46,25 +35,35 @@ class App extends Component {
       }
       this.setState({ displayErrors: false });
 
+    const fetchData = async () => {
+      const response = await fetch('https://jsonplaceholder.typicode.com/users')
+      const data = await response.json();
+      this.setState({ users: data });
+      return this.state.users;
+    }
 
       let uname = document.getElementById("uname");
       let pwd = document.getElementById("password");
       let form = document.querySelector("form");
 
-      let value = compareValues(uname.value, pwd.value);
+    const compare = fetchData().then(value => {
+        this.setState({ status: compareValues(uname.value, pwd.value)});
+        const status = this.state.status;
 
-
-       //If entered username and password matches fetched data display success or not
-        if(value) {
+    //If entered username and password matches fetched data display success or not
+        if(status) {
           form.innerHTML = `<h1>There was a match:Success!</h1>`;
         }
         else {
           form.innerHTML = `<h1>There was no match</h1>`;
         }
-      };
+        return this.state.status;
+      });
 
-    const { displayErrors } = this.state;
+      };
+      const { displayErrors } = this.state;
     return (
+
       <form noValidate onSubmit={handleSubmit} className={displayErrors ? 'displayErrors' : ''}>
         <p><label className="name"><b>Username:</b></label></p>
         <input type="text" pattern="[A-Za-z]*" name="uname" id="uname" required/>
