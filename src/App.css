@@ -26,3 +26,7 @@ input[type=number]{
 h1 {
   color: green;
 }
+
+.displayErrors input:invalid {
+  border-color: red;
+}

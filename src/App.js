@@ -5,7 +5,8 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      users: []
+      users: [],
+      displayErrors: null
     }
   }
 
@@ -14,7 +15,8 @@ class App extends Component {
     .then(res => res.json())
     .then(json => {
       this.setState({
-        users: json
+        users: json,
+        displayErrors: false
       })
     });
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -22,11 +24,11 @@ class App extends Component {
 
   handleSubmit = (event) => {
       event.preventDefault();
-    // if (!event.target.checkValidity()) {
-    //   this.setState({ displayErrors: true });
-    //   return;
-    // }
-    // this.setState({ displayErrors: false });
+    if (!event.target.checkValidity()) {
+      this.setState({ displayErrors: true });
+      return;
+    }
+    this.setState({ displayErrors: false });
 
 
     let uname = document.getElementById("uname");
@@ -41,7 +43,7 @@ class App extends Component {
      let zipcode = data.includes(pwd.value);
 
      //If entered username and password matches fetched data display success or not
-      if(name && zipcode) {
+      if(name && zipcode && !null) {
         form.innerHTML = `<h1>There was a match:Success!</h1>`;
         console.log("matched");
       }
@@ -52,13 +54,14 @@ class App extends Component {
     };
 
   render() {
+    const { displayErrors } = this.state;
     return (
-      <form noValidate>
+      <form noValidate onSubmit={this.handleSubmit} className={displayErrors ? 'displayErrors' : ''}>
         <p><label className="name"><b>Username:</b></label></p>
-        <input type="text" name="uname" id="uname" required/>
+        <input type="text" pattern="[A-Za-z]*" name="uname" id="uname" required/>
         <p><label><b>Password:</b></label></p>
         <input type="number" name="pwd" id="password" required minLength='5' maxLength='5'/>
-        <p><button id="submit" onClick={this.handleSubmit}>Submit</button></p>
+        <p><button id="submit">Submit</button></p>
       </form>
     );
   }
