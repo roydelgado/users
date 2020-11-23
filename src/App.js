@@ -6,7 +6,8 @@ class App extends Component {
     super();
     this.state = {
       users: [],
-      displayErrors: null
+      displayErrors: null,
+      status: null
     }
   }
 
@@ -19,51 +20,53 @@ class App extends Component {
         displayErrors: false
       })
     });
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit = (event) => {
-      event.preventDefault();
-    if (!event.target.checkValidity()) {
-      this.setState({ displayErrors: true });
-      return;
-    }
-    this.setState({ displayErrors: false });
+  render() {
+    const compareValues = (a,b) => {
+      let {users} = this.state;
 
-
-    let uname = document.getElementById("uname");
-    let pwd = document.getElementById("password");
-    let form = document.querySelector("form");
-    let {users} = this.state;
-
-     let username = users.map(element => {
-       let i;
-       let usernames = [];
-       for (i = 0; i <users.length; i++){
-        usernames.push(users[i].username);
-        usernames.push(users[i].address.zipcode);
-        console.log(usernames);
-      }
-      return usernames;
-     });
-
-     let uname1 = JSON.stringify(username);
-     let name = uname1.includes(uname.value);
-     let zipcode = uname1.includes(pwd.value);
-
-     //If entered username and password matches fetched data display success or not
-      if(name && zipcode && !null) {
-        form.innerHTML = `<h1>There was a match:Success!</h1>`;
-      }
-      else {
-        form.innerHTML = `<h1>There was no match</h1>`;
-      }
+      let username = users.map(element => {
+        let i;
+        for (i = 0; i <users.length; i++){
+          let uname = (users[i].username);
+          let pin = (users[i].address.zipcode).slice(0, 5);
+          if (a === uname && b === pin){
+            this.setState.status = true;
+          }
+        }
+       });
+       return this.setState.status;
     };
 
-  render() {
+    const handleSubmit = (event) => {
+      event.preventDefault();
+      if (!event.target.checkValidity()) {
+        this.setState({ displayErrors: true });
+        return;
+      }
+      this.setState({ displayErrors: false });
+
+
+      let uname = document.getElementById("uname");
+      let pwd = document.getElementById("password");
+      let form = document.querySelector("form");
+
+      let value = compareValues(uname.value, pwd.value);
+
+
+       //If entered username and password matches fetched data display success or not
+        if(value) {
+          form.innerHTML = `<h1>There was a match:Success!</h1>`;
+        }
+        else {
+          form.innerHTML = `<h1>There was no match</h1>`;
+        }
+      };
+
     const { displayErrors } = this.state;
     return (
-      <form noValidate onSubmit={this.handleSubmit} className={displayErrors ? 'displayErrors' : ''}>
+      <form noValidate onSubmit={handleSubmit} className={displayErrors ? 'displayErrors' : ''}>
         <p><label className="name"><b>Username:</b></label></p>
         <input type="text" pattern="[A-Za-z]*" name="uname" id="uname" required/>
         <p><label><b>Password:</b></label></p>
