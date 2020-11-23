@@ -35,21 +35,36 @@ class App extends Component {
     let pwd = document.getElementById("password");
     let form = document.querySelector("form");
     let {users} = this.state;
-    console.log(users);
-     let data = JSON.stringify(users);
 
-     console.log("Uname is" + uname.value);
-     let name = data.includes(uname.value);
-     let zipcode = data.includes(pwd.value);
+     let username = users.map(element => {
+       let i;
+       let usernames = [];
+       for (i = 0; i <users.length; i++){
+        usernames.push(users[i].username);
+      }
+      return usernames;
+     });
+
+     let code = users.map(element => {
+       let i;
+       let pin = [];
+       for (i = 0; i <users.length; i++){
+        pin.push(users[i].address.zipcode);
+      }
+      return pin;
+     });
+
+     let uname1 = JSON.stringify(username);
+     let pincode = JSON.stringify(code);
+     let name = uname1.includes(uname.value);
+     let zipcode = pincode.includes(pwd.value);
 
      //If entered username and password matches fetched data display success or not
       if(name && zipcode && !null) {
         form.innerHTML = `<h1>There was a match:Success!</h1>`;
-        console.log("matched");
       }
       else {
         form.innerHTML = `<h1>There was no match</h1>`;
-        console.log("not matched");
       }
     };
 
