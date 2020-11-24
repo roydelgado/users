@@ -1,17 +1,16 @@
 # Getting Started with Create React App
 
 #program statement
-HTML form exercise in React use CSS
+Build HTML form exercise in React using CSS
 
-User -> validate user is not empty
-Password
-Submit button
+Form should contain following:
+- User -> validate user is not empty
+- Password -> Validate username is not empty
+- Submit button
 
-Validate fields to not be empty
-Validate username is not empty
 Do nothing on submit if form is invalid
 
-On successful submit use https://jsonplaceholder.typicode.com/users validate if username & match username and passcode should match zip code
+On successful submit use https://jsonplaceholder.typicode.com/users to validate if input username match username from fetch and password should match zip code
 Else throw error
 
 Use HTML5 form validation
