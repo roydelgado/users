@@ -9,7 +9,8 @@ class App extends Component {
       displayErrors: false,
       status: false,
       uname: "",
-      password: ""
+      password: "",
+      matchMessage: ""
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.compareValues = this.compareValues.bind(this);
@@ -61,19 +62,21 @@ class App extends Component {
       const status = this.state.status;
 
   //If entered username and password matches fetched data display success or not
-      if(status) {
-        form.innerHTML = `<h1>There was a match:Success!</h1>`;
+      if(status){
+        this.setState({ matchMessage: "There was a match:Success!" });
       }
       else {
-        form.innerHTML = `<h1>There was no match</h1>`;
+        this.setState({ matchMessage: "There was no match" });
       }
-      return this.state.status;
+      return this.state.matchMessage;
     });
 
     };
 
   render() {
       const { displayErrors } = this.state;
+      const match = this.state.status;
+      const matchMessage = this.state.matchMessage;
     return (
 
       <form noValidate onSubmit={this.handleSubmit} className={displayErrors ? 'displayErrors' : ''}>
@@ -92,6 +95,11 @@ class App extends Component {
           <p>
             <button id="submit">Submit</button>
           </p>
+          <h1>
+            {
+              matchMessage ? matchMessage :''
+            }
+          </h1>
       </form>
     );
   }
