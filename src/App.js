@@ -33,9 +33,7 @@ class App extends Component {
   };
   handleInputChange = (event) => {
     const value = event.target.value;
-    this.setState({ [event.target.name]: value })
-    // console.log(this.state.uname);
-    // console.log(this.state.password);
+    this.setState({ [event.target.name]: value });
   };
 
   handleSubmit = (event) => {
@@ -51,11 +49,7 @@ class App extends Component {
     const data = await response.json();
     this.setState({ users: data });
     return this.state.users;
-  }
-
-    // let uname = document.getElementById("uname");
-    // let pwd = document.getElementById("password");
-    let form = document.querySelector("form");
+  };
 
   const compare = fetchData().then(value => {
       this.setState({ status: this.compareValues(this.state.uname, this.state.password)});
