@@ -1,6 +1,4 @@
-import React, {
-  Component
-} from 'react';
+import React, { Component } from 'react';
 import './App.css';
 
 class App extends Component {
@@ -89,29 +87,25 @@ class App extends Component {
     const match = this.state.status;
     const matchMessage = this.state.matchMessage;
     return (
-
 			<form noValidate onSubmit={this.handleSubmit} className={displayErrors ? 'displayErrors' : ''}>
+				<p>
+					<label className="name">
+						<b>Username:</b>
+					</label>
+				</p>
+				<input type="text" onChange={this.handleInputChange} pattern="[A-Za-z]*" name="uname" id="uname" required minLength='1' />
 					<p>
-						<label className="name">
-							<b>Username:</b>
+						<label>
+							<b>Password:</b>
 						</label>
+						</p>
+				<input type="password" onChange={this.handleInputChange} name="password" id="password" required minLength='1' maxLength='5'/>
+					<p>
+						<button id="submit">Submit</button>
 					</p>
-					<input type="text" onChange={this.handleInputChange} pattern="[A-Za-z]*" name="uname" id="uname" required minLength='1' />
-						<p>
-							<label>
-								<b>Password:</b>
-							</label>
-						</p>
-					<input type="password" onChange={this.handleInputChange} name="password" id="password" required minLength='1' maxLength='5'/>
-						<p>
-							<button id="submit">Submit</button>
-						</p>
-						<h1>
-							{
-								matchMessage ? matchMessage :''
-							}
-						</h1>
-				</form>
+					<h1>{ matchMessage ? matchMessage :'' }
+					</h1>
+			</form>
     );
   }
 }
