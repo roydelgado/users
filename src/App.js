@@ -85,7 +85,6 @@ class App extends Component {
 
   render() {
     const { displayErrors } = this.state;
-    const match = this.state.status;
     const matchMessage = this.state.matchMessage;
     return (
       <form
