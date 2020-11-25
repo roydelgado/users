@@ -63,7 +63,7 @@ class App extends Component {
       return this.state.users;
     };
 
-    const compare = fetchData().then((value) => {
+    fetchData().then((value) => {
       this.setState({
         status: this.compareValues(this.state.uname, this.state.password),
       });
