@@ -17,7 +17,7 @@ class App extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  compareValues = (a, b) => {
+  hasMatch = (a, b) => {
     let { users } = this.state;
 
     let username = this.state.users.map((element) => {
@@ -25,13 +25,11 @@ class App extends Component {
         let uname = users[i].username;
         let pin = users[i].address.zipcode.slice(0, 5);
         if (a === uname && b === pin) {
-          this.setState({
-            status: true,
-          });
+         return true;
         }
       }
     });
-    return this.state.status;
+    return false
   };
   handleInputChange = (event) => {
     const value = event.target.value;
@@ -64,28 +62,18 @@ class App extends Component {
     };
 
     fetchData().then((value) => {
-      this.setState({
-        status: this.compareValues(this.state.uname, this.state.password),
-      });
-      const status = this.state.status;
-
-      //If entered username and password matches fetched data display success or not
-      if (status) {
+      
+        const hasMatch = this.hasMatch(this.state.uname, this.state.password),
+     
         this.setState({
-          matchMessage: "There was a match:Success!",
+          matchMessage: hasMatch ? "There was a match:Success!" : "There was no match"
         });
-      } else {
-        this.setState({
-          matchMessage: "There was no match",
-        });
-      }
-      return this.state.matchMessage;
     });
   };
 
   render() {
-    const { displayErrors } = this.state;
-    const matchMessage = this.state.matchMessage;
+    const { displayErrors, matchMessage } = this.state;
+
     return (
       <form
         noValidate
@@ -123,7 +111,7 @@ class App extends Component {
         <p>
           <button id="submit">Submit</button>
         </p>
-        <h1>{matchMessage ? matchMessage : ""}</h1>
+        {matchMessage ? <h1>matchMessage</h1> : ""}
       </form>
     );
   }
